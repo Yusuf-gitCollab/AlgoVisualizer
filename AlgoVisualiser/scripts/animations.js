@@ -45,15 +45,17 @@ function swapPromise(index1, index2) {
     // console.log("swap function was called for " + index1 + " and " + index2);
     
     return new Promise(resolve => {
-        animationOver = () => {
-            resolve();
-        }
-        var pos1 = rectArray[index1].posX;
-        var pos2 = rectArray[index2].posX;
-        // console.log("pos1 = " + pos1 + " pos2 =" + pos2);
-        window.requestAnimationFrame(() => {
-            swap(index1, index2, pos1, pos2);
-        });
+        setTimeout(() => {
+            animationOver = () => {
+                resolve();
+            }
+            var pos1 = rectArray[index1].posX;
+            var pos2 = rectArray[index2].posX;
+            // console.log("pos1 = " + pos1 + " pos2 =" + pos2);
+            window.requestAnimationFrame(() => {
+                swap(index1, index2, pos1, pos2);
+            });
+        }, 500)
     });
 }
 
@@ -63,8 +65,17 @@ function auxMoveUp(index) {
             console.log("move Up function was called")
             rectArray[index].moveUp();
             resolve();
-        }, 200)
+        }, 300)
     });
+}
+
+function auxMoveDown(index) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            rectArray[index].moveDown();
+            resolve();
+        }, 300)
+    })
 }
 
 function markSorted() {
@@ -73,4 +84,4 @@ function markSorted() {
     }
 }
 
-export { highlight, swapPromise, auxMoveUp, markSorted };
+export { highlight, swapPromise, auxMoveUp, markSorted, auxMoveDown };

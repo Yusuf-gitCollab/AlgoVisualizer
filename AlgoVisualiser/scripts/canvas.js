@@ -3,6 +3,7 @@ import { ref1, ref2, startX, maxValue, minValue, maxRects, unitWidth, rectGap } 
 import Rectangle from './Rectangle.js';
 import { bubbleSort } from './sorting-algorithms/bubbleSort.js';
 import { insertionSort } from './sorting-algorithms/insetionSort.js';
+import { selectionSort } from './sorting-algorithms/selectionSort.js'
 
 var canvas = document.getElementById("myCanvas");
 canvas.height = window.innerHeight-39;
@@ -25,6 +26,7 @@ for(var i=0; i<maxRects; i++) {
 }
 
 // bubbleSort();
-insertionSort();
+// insertionSort();
+selectionSort();
 
 export {ctx, rectArray};
