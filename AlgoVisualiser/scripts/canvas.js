@@ -4,6 +4,7 @@ import Rectangle from './Rectangle.js';
 import { bubbleSort } from './sorting-algorithms/bubbleSort.js';
 import { insertionSort } from './sorting-algorithms/insetionSort.js';
 import { selectionSort } from './sorting-algorithms/selectionSort.js'
+import { mergeSortAnimationPromise } from './sorting-algorithms/mergeSort.js';
 
 var canvas = document.getElementById("myCanvas");
 canvas.height = window.innerHeight-39;
@@ -27,6 +28,7 @@ for(var i=0; i<maxRects; i++) {
 
 // bubbleSort();
 // insertionSort();
-selectionSort();
+// selectionSort();
+mergeSortAnimationPromise();
 
 export {ctx, rectArray};

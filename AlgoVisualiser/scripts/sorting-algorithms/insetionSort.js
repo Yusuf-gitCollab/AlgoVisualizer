@@ -11,7 +11,6 @@ async function innerLoop(index) {
 
     index = index - 1;
     if(index !== 0 && rectArray[index].value < rectArray[index-1].value) {
-        await highlight(index-1, index, pointingColor, 300);
         await highlight(index-1, index, dangerColor, 300);
         innerLoop(index);
     }else {
