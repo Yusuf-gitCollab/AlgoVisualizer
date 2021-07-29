@@ -8,6 +8,6 @@ var minValue = 1;
 
 var rectGap = 40;
 var startX = 15;
-var maxRects = Math.floor((window.innerWidth - startX) / (rectGap + unitWidth));
+var maxRects =  Math.floor((window.innerWidth - startX) / (rectGap + unitWidth));
 
 export {ref1, ref2, unitHeight, unitWidth, rectGap, startX, maxValue, minValue, maxRects};

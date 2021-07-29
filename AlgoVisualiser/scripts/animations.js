@@ -1,9 +1,8 @@
-import { ctx, rectArray } from './canvas.js';
 import { defaultColor, safetyColor } from './values/colors.js';
-import { maxRects, unitWidth } from './values/measurements.js';
-import { ref1 } from '../scripts/values/measurements.js';
+import { maxRects, ref1, unitWidth } from './values/measurements.js';
 import { tempRects } from './sorting-algorithms/mergeSort.js'
 import Rectangle from './Rectangle.js';
+import { rectArray } from './utilities.js';
 
 function highlight(index1, index2, color, delay = 800) {
     return new Promise(resolve => {
@@ -18,7 +17,7 @@ function highlight(index1, index2, color, delay = 800) {
 
 let animationOver;
 function swap(index1, index2, pos1, pos2) {
-    console.log("swap function is being called");
+    // console.log("swap function is being called");
     rectArray[index1].clear();
     rectArray[index2].clear();
 
@@ -96,7 +95,7 @@ function merge_highlight(low, high, color) {
 function redraw(tempX, tempV, l) {
     return new Promise(resolve => {
         setTimeout(() => {
-            tempRects[l] = new Rectangle(tempX, tempV);
+            tempRects[l] = new Rectangle(tempX, tempV, ref1);
             tempRects[l].draw();
             resolve();
         }, 400)

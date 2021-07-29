@@ -3,11 +3,11 @@ import { ref1, ref2,  unitHeight, unitWidth } from './values/measurements.js';
 import { defaultColor, textColor } from './values/colors.js';
 
 export default class Rectangle {
-    constructor(posX, value) {
+    constructor(posX, value, ref) {
         this.posX = posX;
         this.height = value * unitHeight;
         this.width = unitWidth;
-        this.posY = ref1-this.height;
+        this.posY = ref-this.height;
         this.color = defaultColor;
         this.value = value;        
     }
@@ -39,18 +39,6 @@ export default class Rectangle {
     moveDown() {
         this.clear();
         this.posY = ref2 - this.height;
-        this.draw();
-    }
-
-    moveRight() {
-        this.clear();
-        this.posX = posX-1;
-        this.draw();
-    }
-
-    moveLeft() {
-        this.clear();
-        this.posX = posX + 1;
         this.draw();
     }
 }
