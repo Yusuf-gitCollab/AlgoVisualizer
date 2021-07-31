@@ -1,11 +1,10 @@
-import { ctx, rectArray } from './canvas.js';
-import { defaultColor, safetyColor } from './values/colors.js';
+import { safetyColor } from './values/colors.js';
 import { maxRects, unitWidth } from './values/measurements.js';
-import { ref1 } from '../scripts/values/measurements.js';
 import { tempRects } from './sorting-algorithms/mergeSort.js'
 import Rectangle from './Rectangle.js';
+import { rectArray } from './utilities.js'
 
-function highlight(index1, index2, color, delay = 800) {
+function highlight(index1, index2, color, rectArray, delay) {
     return new Promise(resolve => {
         setTimeout(() => {
             rectArray[index1].changeColor(color);
@@ -103,10 +102,19 @@ function redraw(tempX, tempV, l) {
     })
 }
 
+function invisibleRect(index) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            rectArray[index].clear();
+            resolve();
+        }, 200); 
+    });
+}
+
 function markSorted() {
     for(var i=0; i<maxRects; i++) {
         rectArray[i].changeColor(safetyColor);
     }
 }
 
-export { highlight, swapPromise, auxMoveUp, markSorted, auxMoveDown, merge_highlight, redraw };
+export { highlight, swapPromise, auxMoveUp, markSorted, auxMoveDown, merge_highlight, redraw, invisibleRect };

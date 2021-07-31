@@ -17,7 +17,7 @@ export default class Rectangle {
         ctx.fillText(this.value, this.posX, this.posY);
         ctx.fillStyle = this.color;
         ctx.fillRect(this.posX, this.posY, this.width, this.height);
-        // console.log("redrwaing the rects")
+        // console.log("redrwaing the rects and posx is " + this.posX)
     }
     changeColor(color) {
         // console.log("the color was changed to " );

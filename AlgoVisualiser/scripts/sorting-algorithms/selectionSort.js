@@ -1,4 +1,4 @@
-import { rectArray } from '../canvas.js';
+import { rectArray } from '../utilities.js';
 import { defaultColor, safetyColor, pointingColor } from '../values/colors.js'
 import { maxRects } from '../values/measurements.js';
 import { auxMoveDown, auxMoveUp, highlight, markSorted, swapPromise } from '../animations.js'
