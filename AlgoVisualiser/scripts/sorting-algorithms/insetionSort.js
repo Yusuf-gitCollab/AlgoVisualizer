@@ -1,6 +1,7 @@
 import { defaultColor, dangerColor, safetyColor, pointingColor } from '../values/colors.js'
 import { maxRects } from '../values/measurements.js';
 import { auxMoveUp, highlight, markSorted, swapPromise } from '../animations.js';
+import { rectArray } from '../utilities.js';
 
 var innerLoopResolve;
 var outerLoopResolve;

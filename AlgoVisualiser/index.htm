@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link href="./style.css" rel="stylesheet">
     <title> AlgoVisualizer </title>
 </head>
@@ -30,14 +31,36 @@
             </div>
         </div>
     </section>
-    <div id="app">
-        <div class="navigation">
-            blah blah..
-        </div>
+    <section id="app" class="application">
+        <nav class="navigation">
+            <div class="logo">
+                <i class="fas fa-code fa-2x"> </i> 
+                <span class="logo-text">AlgoVisualizer</span>
+            </div>
+            <div class="play-container" type="button" id="playBtn">
+               <h3 class="heading" > Play </h3> <i class="fas fa-play"></i>
+            </div>
+            <div class="algo-list">
+                <h3 class="heading">Sorting Algorithm</h3>
+
+                <div id="bubbleSortBtn"> Bubble Sort </div>
+                <div id="insertionSortBtn" >Insertion Sort </div>
+                <div id="selectionSortBtn" > Selection Sort </div>
+                <div id="mergeSortBtn" > Merge Sort</div>
+                <div id="countingSortBtn" > Counting Sort</div>
+            
+                <h3 class="heading"> Path finding Algo</h3>
+                
+                <div>Breadth first search</div>
+                <div> Depeath first search</div>
+            </div>
+            
+            
+        </nav>
         <div class="canvas-container">
             <canvas id="myCanvas"></canvas>
         </div>
-    </div>
+    </section>
     
     <script type="module" src="./scripts/canvas.js"> </script>
 </body>

@@ -4,7 +4,7 @@ import { tempRects } from './sorting-algorithms/mergeSort.js'
 import Rectangle from './Rectangle.js';
 import { rectArray } from './utilities.js'
 
-function highlight(index1, index2, color, rectArray, delay) {
+function highlight(index1, index2, color, delay) {
     return new Promise(resolve => {
         setTimeout(() => {
             rectArray[index1].changeColor(color);

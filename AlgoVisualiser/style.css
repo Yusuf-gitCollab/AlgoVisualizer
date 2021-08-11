@@ -9,6 +9,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family:  'Roboto', sans-serif;
+}
+
 .heading {
   font-family: 'Merriweather', sans-serif;
 }
@@ -24,7 +28,6 @@ html {
 
 .banner {
   text-align: center;
-  font-family:  'Roboto', sans-serif;
   max-width: 50%;
 }
 
@@ -55,4 +58,63 @@ html {
   background: white;
   color: black;
 }
+
+/*  APP  */
+.application {
+  display:grid;
+  grid-template-columns: 20% 80%;
+}
+
+.navigation {
+  background: #11161a;
+  color: #dbe2e8;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation .logo,
+.navigation .algo-list {
+  /* background: red; */
+  padding: 1em 0;
+}
+
+.navigation .logo {
+  color:  #02b3e4;
+  margin-bottom: 1em;
+}
+
+.logo-text {
+  font-size: 1.4rem;
+}
+
+.play-container {
+  padding: 1em 0.2em 0.5em;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white; 
+}
+
+.play-container h3 {
+  display: inline-block;
+  padding: 0 1em;
+}
+
+.algo-list h3 {
+  font-size: 1.5rem;
+  margin-top: 2em;
+}
+
+.algo-list div {
+  list-style: none;
+  padding: 1em 0;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  cursor: pointer;
+}
+
+.play-container:hover,
+.algo-list div:hover {
+  background: #3f646e;
+}
+
+
 

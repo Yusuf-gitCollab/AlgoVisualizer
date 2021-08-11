@@ -8,28 +8,16 @@ var timesRepeated = 0;
 
 async function animateTheInnerLoop(index) {
     var lastIndex = (maxRects-1)-timesRepeated;
-
-    await highlight(index, index+1, pointingColor, rectArray, 300);
-    if(rectArray[index].value > rectArray[index+1].value){
-        await highlight(index, index+1, dangerColor);
-        await swapPromise(index, index+1);
-        await highlight(index, index+1, safetyColor, 400);
-    }else {
-        await highlight(index, index+1, safetyColor, 400);
-    }
-    if ( index+1 == lastIndex) {
-        
-        await highlight(index+1, index+1, safetyColor, 50);
-        if(lastIndex != 1) {
-            highlight(index, index, defaultColor, 0);
-        }else {
-            hightlight(index, index, safetyColor, 0);
+    if(index < lastIndex) {
+        await highlight(index, index+1, pointingColor, 300);
+        if(rectArray[index].value > rectArray[index+1].value){
+            await swapPromise(index, index+1);
         }
-        innerLoopResolve();
-    }
-    else {
+        await highlight(index,index+1, defaultColor, 300);
         animateTheInnerLoop(index+1);
-        await highlight(index, index+1, defaultColor, 400);
+    }else {
+        await highlight(index, index, safetyColor, 0);
+        innerLoopResolve();
     }
     
 }
