@@ -1,0 +1,58 @@
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.heading {
+  font-family: 'Merriweather', sans-serif;
+}
+
+.introduction {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+}
+
+.banner {
+  text-align: center;
+  font-family:  'Roboto', sans-serif;
+  max-width: 50%;
+}
+
+.banner h1 {
+  font-size: 5rem;
+}
+
+.banner-para {
+  padding: 3em 0;
+}
+
+.banner-para p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.banner .btn {
+  position: relative;
+  top: 5em;
+}
+
+.banner .btn a{
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.4rem;
+  padding: 0.5em 1em;
+  background: white;
+  color: black;
+}
+
