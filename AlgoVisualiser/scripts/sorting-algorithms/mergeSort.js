@@ -1,7 +1,7 @@
-import { rectArray } from '../utilities.js';
-import { defaultColor, safetyColor, pointingColor, dangerColor } from '../values/colors.js'
+import { defaultColor,  pointingColor } from '../values/colors.js'
 import { maxRects, unitWidth, rectGap, startX } from '../values/measurements.js';
 import { redraw, auxMoveDown, merge_highlight, markSorted } from '../animations.js';
+import { rectArray } from '../utilities.js';
 
 
 var mergeSortResolver;  
