@@ -63,6 +63,7 @@ body {
 .application {
   display:grid;
   grid-template-columns: 20% 80%;
+  height: 100vh;
 }
 
 .navigation {
@@ -114,6 +115,7 @@ body {
 .play-container:hover,
 .algo-list div:hover {
   background: #3f646e;
+  /* color:  */
 }
 
 

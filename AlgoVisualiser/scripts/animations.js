@@ -3,6 +3,7 @@ import { maxRects, unitWidth } from './values/measurements.js';
 import { tempRects } from './sorting-algorithms/mergeSort.js'
 import Rectangle from './Rectangle.js';
 import { rectArray } from './utilities.js'
+import { countingRectsArray } from './sorting-algorithms/countingSort.js';
 
 function highlight(index1, index2, color, delay) {
     return new Promise(resolve => {
@@ -64,7 +65,6 @@ function swapPromise(index1, index2) {
 function auxMoveUp(index) {
     return new Promise(resolve => {
         setTimeout(() => {
-            console.log("move Up function was called")
             rectArray[index].moveUp();
             resolve();
         }, 300)
@@ -111,10 +111,21 @@ function invisibleRect(index) {
     });
 }
 
+function cntSortHighlight(index1, index2, color, delay=100) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            countingRectsArray[index1].changeColor(color);
+            countingRectsArray[index2].changeColor(color);
+            // console.log("highlight function for index is " + index1 + " and for index " + index2);
+            resolve();
+        }, delay);
+    });
+}
+
 function markSorted() {
     for(var i=0; i<maxRects; i++) {
         rectArray[i].changeColor(safetyColor);
     }
 }
 
-export { highlight, swapPromise, auxMoveUp, markSorted, auxMoveDown, merge_highlight, redraw, invisibleRect };
+export { highlight, swapPromise, auxMoveUp, markSorted, auxMoveDown, merge_highlight, redraw, invisibleRect, cntSortHighlight };

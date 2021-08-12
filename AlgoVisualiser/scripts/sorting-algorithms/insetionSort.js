@@ -8,14 +8,14 @@ var outerLoopResolve;
 
 async function innerLoop(index) {
     await swapPromise(index-1, index);
-
+    await highlight(index, index, defaultColor, 100);
     index = index - 1;
     if(index !== 0 && rectArray[index].value < rectArray[index-1].value) {
         await highlight(index-1, index, dangerColor, 300);
         innerLoop(index);
     }else {
         await auxMoveUp(index);
-        await highlight(index, index+1, safetyColor, 300);
+        await highlight(index, index+1, defaultColor, 300);
         innerLoopResolve();
     }
 }
@@ -37,8 +37,7 @@ async function outerLoop(index) {
         rectArray[index].moveDown(); 
         await promiseInnerLoop(index);
     }else {
-        await highlight(index-1, index-1, safetyColor, 300);
-        await highlight(index-1, index-1, defaultColor, 500);
+        await highlight(index-1, index-1, defaultColor, 300);
     }
     index = index + 1;
     if(index < maxRects) {
@@ -59,8 +58,6 @@ function promiseOuterLoop() {
     })
 }
 
-function insertionSort() {
-    promiseOuterLoop();
-}
 
-export { insertionSort };
+
+export { promiseOuterLoop as insertionSort, outerLoopResolve };

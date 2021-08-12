@@ -4,13 +4,16 @@ import Rectangle from './Rectangle.js';
 import { bubbleSort } from './sorting-algorithms/bubbleSort.js';
 import { insertionSort } from './sorting-algorithms/insetionSort.js';
 import { selectionSort } from './sorting-algorithms/selectionSort.js'
-import { mergeSortAnimationPromise } from './sorting-algorithms/mergeSort.js';
-import { generate } from './sorting-algorithms/countingSort.js';
+import { mergeSort } from './sorting-algorithms/mergeSort.js';
+import { cntSortGenerate, cntSort } from './sorting-algorithms/countingSort.js';
+import { navigationColor, textHighlight } from './values/colors.js';
+import { highlight } from './animations.js';
 
 var bubbleSortBtn = document.getElementById("bubbleSortBtn");
 var insertionSortBtn = document.getElementById("insertionSortBtn");
 var selectionSortBtn = document.getElementById("selectionSortBtn");
 var mergeSortBtn = document.getElementById("mergeSortBtn");
+var countingSortBtn = document.getElementById("countingSortBtn");
 var playBtn = document.getElementById("playBtn");
 
 var canvas = document.getElementById("myCanvas");
@@ -28,31 +31,80 @@ bubbleSortBtn.addEventListener("click", prepareCanvas);
 insertionSortBtn.addEventListener("click", prepareCanvas);
 selectionSortBtn.addEventListener("click", prepareCanvas);
 mergeSortBtn.addEventListener("click", prepareCanvas);
+countingSortBtn.addEventListener("click", prepareCanvas);
 playBtn.addEventListener("click", playAlgorithm);
 
 var selectedAlorithm;
+var selectedTab = null;
 
 function prepareCanvas(e) {
-    let icon = document.createElement("i");
-    let iconClass = "fas fa-play";
-    icon.className = iconClass;
     console.log(e.target);
-    generateRectangles();
+    if(selectedTab !== null) {
+        toogleTabColor(0);
+        selectedTab = e.target;
+        toogleTabColor(1);
+    }else {
+        selectedTab = e.target;
+        toogleTabColor(1);
+    }
+    toogleTabColor(1);
     selectedAlorithm = e.target.id;
+    if(selectedAlorithm === "countingSortBtn") {
+        cntSortGenerate();
+    }else {
+        generateRectangles();
+    }
+}
+
+function toogleTabColor(val) {
+    if(selectedTab !== null) {
+        if(val === 1) {
+            selectedTab.style.backgroundColor = textHighlight;
+        }else {
+            selectedTab.style.backgroundColor = navigationColor;
+        }
+    }
 }
 
 
 
-function playAlgorithm() {
+async function playAlgorithm() {
+    playBtn.removeEventListener("click", playAlgorithm);
     console.log("play algorithm was called" + selectedAlorithm);
+    playBtn.style.opacity = 0.4;
     switch (selectedAlorithm) {
         case "bubbleSortBtn":
-            bubbleSort();
+            await bubbleSort();
+            toogleTabColor(0);
+            selectedAlorithm = null;
             break;
         case "insertionSortBtn":
-            insertionSort();
+            await insertionSort();
+            toogleTabColor(0);
+            selectedAlorithm = null;
             break;
+        case "selectionSortBtn":
+            await selectionSort();
+            toogleTabColor(0);
+            selectedAlorithm = null;
+            break;
+        case "mergeSortBtn":
+            await mergeSort();
+            toogleTabColor(0);
+            selectedAlorithm = null;
+            break;
+        case "countingSortBtn":
+            await cntSort();
+            toogleTabColor(0);
+            selectedAlorithm = null;
+            break;
+        default:
+            window.alert("Please select an algorithm first");
+            break;
+        
     }
+    playBtn.addEventListener("click", playAlgorithm);
+    playBtn.style.opacity = 1;
 }
 
 

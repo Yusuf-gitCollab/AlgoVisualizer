@@ -1,18 +1,18 @@
-import { ctx } from "../canvas.js";
+import { ctx, canvas } from "../canvas.js";
 import { darkBlue, defaultColor, invisibleColor, pointingColor, safetyColor, textColor } from "../values/colors.js";
 import { maxRects, rectGap, ref2, startX, unitWidth } from "../values/measurements.js";
-import { highlight, invisibleRect, markSorted, redraw } from "../animations.js";
-import { generateRectangles, rectArray } from "../utilities.js";
+import { cntSortHighlight, highlight, invisibleRect, markSorted, redraw } from "../animations.js";
+import { clearRectArray, rectArray } from "../utilities.js";
 import Rectangle from "../Rectangle.js";
 
 var minValue = 11;
-var maxValue = minValue * 2;
+var maxValue = 22;
 var totalCountingRects = 12;
-// console.log(totalCountingRects);
 var x = startX;
 
 var resolveTraversal;
 var redrawPromiseResolver;
+var resolveCntSort;
 
 class CountingRect {
     
@@ -65,7 +65,17 @@ function generateCountingRects() {
 }
 
 
-
+function cntSortGenerateRects() {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    var x = startX;
+    clearRectArray();
+    for(var i=0; i<maxRects; i++) {
+        var value = Math.floor((Math.random() * (maxValue - minValue))  +  minValue);
+        rectArray[i] = new Rectangle(x, value);
+        rectArray[i].draw();
+        x += (unitWidth + rectGap);
+    }
+}
 
 async function drawSorted(index) {
     console.log("draw sorted called for index for " + index + " and x is " + x);
@@ -75,12 +85,12 @@ async function drawSorted(index) {
     countingRectsArray[index].changeOccurence('-');
     x += (unitWidth + rectGap);
 
-    await highlight(index, index, invisibleColor, countingRectsArray, 200);
+    await cntSortHighlight(index, index, invisibleColor, 200);
     if(countingRectsArray[index].occured > 0) {
-        await highlight(index, index, darkBlue, countingRectsArray, 400);
+        await cntSortHighlight(index, index, darkBlue, 400);
         drawSorted(index);
     }else {
-        await highlight(index, index, defaultColor, countingRectsArray, 400);
+        await cntSortHighlight(index, index, defaultColor, 400);
         redrawPromiseResolver();
     }
 }
@@ -104,17 +114,20 @@ async function countingRectsArrayTraversal(index) {
     index += 1;
     if(index < totalCountingRects) {
         countingRectsArrayTraversal(index )
+    }else {
+        resolveCntSort();
     }
 }
 
 
 async function traverse(index) {
-    await highlight(index, index, pointingColor, rectArray, 300);
+    await highlight(index, index, pointingColor,300);
     await invisibleRect(index);
     let tempId = rectArray[index].value - minValue;
+    console.log("tempID is " + tempId)
     countingRectsArray[tempId].changeOccurence('+');
-    await highlight(tempId, tempId, invisibleColor, countingRectsArray, 0);
-    await highlight(tempId, tempId, darkBlue, countingRectsArray, 200);
+    await cntSortHighlight(tempId, tempId, invisibleColor, 0);
+    await cntSortHighlight(tempId, tempId, darkBlue, 200);
     console.log(tempId);
     if(index <= maxRects -1) {
         if(index === maxRects-1) {
@@ -139,22 +152,24 @@ function traversePromise(index) {
 
 
 
-async function play() {
-    await traversePromise(0);
-
+function cntSort() {
+    return new Promise(resolve => {
+        traversePromise(0);
+        resolveCntSort = () => {
+            resolve();
+        }
+    });
+     
 }
 
-function generate() {
+function cntSortGenerate() {
+    cntSortGenerateRects();
     generateCountingRects();
-    generateRectangles(minValue, maxValue);
     console.log(rectArray);
     console.log(countingRectsArray)
-    setTimeout(()=> {
-        play();
-    }, 1000);
 }
 
-export {generate}
+export { cntSortGenerate, cntSort, countingRectsArray }
 
 
 // Functioning:
