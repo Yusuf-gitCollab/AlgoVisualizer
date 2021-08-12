@@ -1,35 +1,27 @@
-import { highlight, swapPromise } from '../animations.js';
+import { highlight, markSorted, swapPromise } from '../animations.js';
 import { defaultColor, dangerColor, safetyColor, pointingColor } from '../values/colors.js'
 import { maxRects } from '../values/measurements.js';
 import { generateRectangles, rectArray } from '../utilities.js'
 
+var outerLoopResolver;
 var innerLoopResolve;
+var bubbleSortResolve;
+var unsorted = false;
 var timesRepeated = 0;
 
 async function animateTheInnerLoop(index) {
     var lastIndex = (maxRects-1)-timesRepeated;
-
-    await highlight(index, index+1, pointingColor, rectArray, 300);
-    if(rectArray[index].value > rectArray[index+1].value){
-        await highlight(index, index+1, dangerColor);
-        await swapPromise(index, index+1);
-        await highlight(index, index+1, safetyColor, 400);
-    }else {
-        await highlight(index, index+1, safetyColor, 400);
-    }
-    if ( index+1 == lastIndex) {
-        
-        await highlight(index+1, index+1, safetyColor, 50);
-        if(lastIndex != 1) {
-            highlight(index, index, defaultColor, 0);
-        }else {
-            highlight(index, index, safetyColor, 0);
+    if(index < lastIndex) {
+        await highlight(index, index+1, pointingColor, 300);
+        if(rectArray[index].value > rectArray[index+1].value){
+            unsorted = true;
+            await swapPromise(index, index+1);
         }
-        innerLoopResolve();
-    }
-    else {
+        await highlight(index,index+1, defaultColor, 300);
         animateTheInnerLoop(index+1);
-        await highlight(index, index+1, defaultColor, 300);
+    }else {
+        await highlight(index, index, safetyColor, 0);
+        innerLoopResolve();
     }
     
 }
@@ -47,14 +39,36 @@ async function outerLoop() {
     await returnPromiseToAnimateInnerLoop();
     var temp = (maxRects-1)
     timesRepeated+=1;
-    if(timesRepeated < temp) {
+    if(timesRepeated < temp && unsorted === true) {
+        unsorted = false;
         outerLoop();
+    }else {
+        outerLoopResolver();
     }
 }
 
-function bubbleSort() {
-    generateRectangles();
-   outerLoop();
+function promiseOuterLoop() {
+    return new Promise(resolve => {
+        outerLoop();
+        outerLoopResolver = () => {
+            resolve();
+        }
+    })
 }
 
-export { bubbleSort };
+async function _bubbleSort() {
+    await promiseOuterLoop();
+    markSorted();
+    bubbleSortResolve();
+}
+
+function bubbleSort() {
+    return new Promise(resolve => {
+        _bubbleSort();
+        bubbleSortResolve = () => {
+            resolve();
+        }
+    })
+}
+
+export { bubbleSort, bubbleSortResolve };

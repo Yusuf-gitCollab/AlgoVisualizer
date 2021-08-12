@@ -121,4 +121,4 @@ function mergeSortAnimationPromise() {
     })
 }
 
-export { mergeSortAnimationPromise, tempRects };
+export { mergeSortAnimationPromise as mergeSort, tempRects, mergeSortAnimationResolver };

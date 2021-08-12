@@ -71,14 +71,11 @@ function promiseOuterLoop() {
     return new Promise (resolve => {
         outerLoopResolver = () => {
             resolve();
+            markSorted();
         }
         outerLoop();
     });
 }
 
-async function selectionSort() {
-    await promiseOuterLoop();
-    markSorted();
-}
 
-export { selectionSort };
+export { promiseOuterLoop as  selectionSort, outerLoopResolver };
