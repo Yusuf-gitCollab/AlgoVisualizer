@@ -95,7 +95,7 @@ function merge_highlight(low, high, color) {
 function redraw(tempX, tempV, l) {
     return new Promise(resolve => {
         setTimeout(() => {
-            tempRects[l] = new Rectangle(tempX, tempV, ref1);
+            tempRects[l] = new Rectangle(tempX, tempV);
             tempRects[l].draw();
             resolve();
         }, 400)
